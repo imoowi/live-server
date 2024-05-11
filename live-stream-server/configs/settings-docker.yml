@@ -3,7 +3,7 @@ application: # dev开发环境 test测试环境 prod线上环境
   name: github.com/imoowi/live-stream-server # 服务名称
 server:
   host: 0.0.0.0 # 服务器ip，默认使用 0.0.0.0
-  port: 80 # 服务端口号
+  port: 8000 # 服务端口号
   readtimeout: 60 # 读超时时间
   writertimeout: 60 # 写超时时间
 logger:
