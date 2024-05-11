@@ -1,0 +1,44 @@
+version: "3.7"
+networks:
+  live-server:
+    driver: bridge
+services:
+  live-stream-server:
+    container_name: live-stream-server
+    build: ./live-stream-server
+    ports:
+      - 8000:8000
+    volumes:
+      - ./live-stream-server/configs:/configs
+      - ./live-stream-server/runtime:/runtime
+    restart: always
+    networks:
+      - live-server
+  live-stream-ui:
+    container_name: live-stream-ui
+    build: ./live-stream-ui
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./live-stream-ui/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./live-stream-ui/gzip.conf:/etc/nginx/conf.d/gzip.conf
+      - ./live-stream-ui/ssl:/usr/share/nginx/ssl
+    restart: always
+    networks:
+      - live-server
+  srs:
+    container_name: srs
+    image: registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5
+    environment:
+      - CANDIDATE=192.168.10.106
+    ports:
+      - 1935:1935
+      - 1985:1985
+      - 8080:8080
+    volumes:
+      - ./srs-server/conf:/usr/local/srs/conf
+      - ./srs-server/html:/usr/local/srs/objs/nginx/html
+    restart: always
+    networks:
+      - live-server

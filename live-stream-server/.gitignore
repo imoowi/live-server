@@ -1,0 +1,4 @@
+runtime
+docs/docs.go
+docs/swagger*
+__debug_bin.exe
