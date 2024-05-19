@@ -32,6 +32,7 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5
     environment:
       - CANDIDATE=192.168.10.106
+      # 192.168.1.8
     ports:
       - 1935:1935
       - 1985:1985
